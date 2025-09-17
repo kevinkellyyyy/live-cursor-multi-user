@@ -2,7 +2,7 @@ const http = require("http");
 const { WebSocketServer } = require("ws");
 
 const url = require("url");
-const uuidv4 = require("uuid").v4;
+const { v4: uuidv4 } = require("uuid");
 
 const server = http.createServer();
 const wsServer = new WebSocketServer({ server });
@@ -76,6 +76,15 @@ wsServer.on("connection", (connection, request) => {
   connection.on("close", () => handleClose(uuid));
 });
 
-server.listen(port, () => {
+// Add graceful shutdown
+process.on("SIGTERM", () => {
+  console.log("SIGTERM received, shutting down gracefully");
+  server.close(() => {
+    console.log("Server closed");
+    process.exit(0);
+  });
+});
+
+server.listen(port, "0.0.0.0", () => {
   console.log(`WebSocket server is listening on port ${port}`);
 });
