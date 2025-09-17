@@ -4,7 +4,6 @@
   "description": "Learn websockets by building a real-time cursor sharing app.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "dev": "node index.js"
   },
@@ -17,6 +16,7 @@
     "ws": "^8.18.3"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
   }
 }

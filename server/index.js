@@ -4,7 +4,20 @@ const { WebSocketServer } = require("ws");
 const url = require("url");
 const { v4: uuidv4 } = require("uuid");
 
-const server = http.createServer();
+const server = http.createServer((req, res) => {
+  // Add HTTP handler for health checks and CORS
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  if (req.url === "/health") {
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.end("WebSocket server is running");
+  } else {
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.end("WebSocket server ready - connect via WSS");
+  }
+});
 const wsServer = new WebSocketServer({ server });
 const port = process.env.PORT || 8000;
 
