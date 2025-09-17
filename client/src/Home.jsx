@@ -50,7 +50,7 @@ const renderUserList = (users) => {
 };
 
 const Home = ({ username }) => {
-  const WS_URL = "ws://127.0.0.1:8000";
+  const WS_URL = "wss://live-cursor-multi-user-production.up.railway.app";
   const { sendJsonMessage, lastJsonMessage } = useWebSocket(WS_URL, {
     queryParams: { username },
   });
